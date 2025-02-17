@@ -1,0 +1,342 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Project 3},
+  pdfauthor={JiaYi Chen},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Project 3}
+\author{JiaYi Chen}
+\date{2025-02-17}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{install.packages("rvest")}
+\NormalTok{library(rvest)}
+\NormalTok{library(dplyr)}
+\NormalTok{library(stringr)}
+\NormalTok{library(httr)}
+\NormalTok{scrape\_latte\_price \textless{}{-} function(country\_url) \{}
+\NormalTok{    +     page \textless{}{-} read\_html(country\_url)}
+\NormalTok{    +     latte\_price \textless{}{-} page \%\textgreater{}\%}
+\NormalTok{      +         html\_nodes(".menu{-}item") \%\textgreater{}\%  }
+\NormalTok{      +         html\_text() \%\textgreater{}\%}
+\NormalTok{      +         str\_extract("\textbackslash{}\textbackslash{}$\textbackslash{}\textbackslash{}d+\textbackslash{}\textbackslash{}.\textbackslash{}\textbackslash{}d+") \%\textgreater{}\%}
+\NormalTok{      +         as.numeric()}
+\NormalTok{    +     }
+\NormalTok{      +     return(latte\_price)}
+\NormalTok{    + \}}
+\NormalTok{countries \textless{}{-} c("AUSTRALIA", "BRASIL", "CANADA", "DENMARK")  }
+\NormalTok{base\_url \textless{}{-} "https://www.starbucks{-}menu{-}prices.com/"  }
+\NormalTok{latte\_prices \textless{}{-} data.frame()}
+\NormalTok{for (country in countries) \{}
+\NormalTok{    +     country\_url \textless{}{-} paste0(base\_url, country, "{-}starbucks{-}menu{-}prices/")}
+\NormalTok{    +     price \textless{}{-} scrape\_latte\_price(country\_url)}
+\NormalTok{    +     latte\_prices \textless{}{-} rbind(latte\_prices, data.frame(Country=country, Price=price))}
+\NormalTok{    + \}}
+\NormalTok{scrape\_latte\_price \textless{}{-} function(country\_url) \{}
+\NormalTok{  +     +     page \textless{}{-} read\_html(country\_url)}
+\NormalTok{  +     +     latte\_price \textless{}{-} page \%\textgreater{}\%}
+\NormalTok{    +         +         html\_nodes(".menu{-}item") \%\textgreater{}\%  }
+\NormalTok{    +         +         html\_text() \%\textgreater{}\%}
+\NormalTok{    +         +         str\_extract("\textbackslash{}\textbackslash{}$\textbackslash{}\textbackslash{}d+\textbackslash{}\textbackslash{}.\textbackslash{}\textbackslash{}d+") \%\textgreater{}\%}
+\NormalTok{    +         +         as.numeric()}
+\NormalTok{  +     +     }
+\NormalTok{    +         +     return(latte\_price)}
+\NormalTok{  +     + \}}
+\NormalTok{scrape\_latte\_price \textless{}{-} function(country\_url) \{}
+\NormalTok{  +     page \textless{}{-} tryCatch(read\_html(country\_url), error = function(e) return(NULL))}
+\NormalTok{  +     }
+\NormalTok{    +     if (is.null(page)) \{}
+\NormalTok{      +         return(NA)  }
+\NormalTok{      +     \}}
+\NormalTok{    +     latte\_prices \textless{}{-} page \%\textgreater{}\%}
+\NormalTok{      +         html\_nodes(".menu{-}item") \%\textgreater{}\%  }
+\NormalTok{      +         html\_text() \%\textgreater{}\%}
+\NormalTok{      +         str\_extract("\textbackslash{}\textbackslash{}$\textbackslash{}\textbackslash{}d+\textbackslash{}\textbackslash{}.\textbackslash{}\textbackslash{}d+") \%\textgreater{}\%}
+\NormalTok{      +         as.numeric()}
+\NormalTok{    +     }
+\NormalTok{      +     if (length(latte\_prices) == 0) \{}
+\NormalTok{        +         return(NA)  }
+\NormalTok{        +     \}}
+\NormalTok{    +     }
+\NormalTok{      +     return(latte\_prices[1])  }
+\NormalTok{    + \}}
+\NormalTok{countries \textless{}{-} c("AUSTRALIA", "BRASIL", "CANADA", "DENMARK")  }
+\NormalTok{base\_url \textless{}{-} "https://starbucksmenuprices.com/\#google\_vignette"  }
+\NormalTok{latte\_prices \textless{}{-} data.frame()}
+\NormalTok{for (country in countries) \{}
+\NormalTok{    +     country\_url \textless{}{-} paste0(base\_url, country, "{-}starbucks{-}menu{-}prices/")}
+\NormalTok{    +     price \textless{}{-} scrape\_latte\_price(country\_url)}
+\NormalTok{    +     }
+\NormalTok{      +     }
+\NormalTok{      +     latte\_prices \textless{}{-} rbind(latte\_prices, data.frame(Country = country, Price = price, stringsAsFactors = FALSE))}
+\NormalTok{      + \}}
+\NormalTok{write.csv(latte\_prices, "latte\_prices.csv", row.names=FALSE)}
+\NormalTok{print("数据抓取完成，已保存到 latte\_prices.csv")}
+\NormalTok{[1] "数据抓取完成，已保存到 latte\_prices.csv"}
+\NormalTok{data \textless{}{-} read.csv("latte\_prices.csv")}
+
+\NormalTok{print(data)}
+\NormalTok{Country Price}
+\NormalTok{1 AUSTRALIA    NA}
+\NormalTok{2    BRASIL    NA}
+\NormalTok{3    CANADA    NA}
+\NormalTok{4   DENMARK    NA}
+\NormalTok{install.packages("RSelenium")}
+\NormalTok{library(RSelenium)}
+\NormalTok{rD \textless{}{-} rsDriver(browser="chrome", chromever="latest")}
+\NormalTok{system("java {-}version")}
+\NormalTok{[1] 127}
+
+\NormalTok{scrape\_exchange\_rate \textless{}{-} function(currency\_code) \{}
+\NormalTok{+     search\_url \textless{}{-} paste0("https://duckduckgo.com/?q=1+USD+to+", currency\_code)}
+\NormalTok{+     remDr$navigate(search\_url)}
+\NormalTok{+     }
+\NormalTok{+     Sys.sleep(3)  }
+\NormalTok{+     rate\_element \textless{}{-} remDr$findElement(using="css selector", "div.some{-}css{-}selector")}
+\NormalTok{+     exchange\_rate \textless{}{-} rate\_element$getElementText()[[1]]}
+\NormalTok{+     }
+\NormalTok{+     return(exchange\_rate)}
+\NormalTok{+ \}}
+\NormalTok{currency\_codes \textless{}{-} c("EUR", "GBP", "CAD", "INR")  }
+\NormalTok{exchange\_rates \textless{}{-} data.frame()}
+\NormalTok{for (code in currency\_codes) \{}
+\NormalTok{+     rate \textless{}{-} scrape\_exchange\_rate(code)}
+\NormalTok{+     exchange\_rates \textless{}{-} rbind(exchange\_rates, data.frame(Currency=code, Rate=rate))}
+\NormalTok{+ \}}
+
+
+
+
+\NormalTok{\#\# R Markdown}
+
+\NormalTok{This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see \textless{}http://rmarkdown.rstudio.com\textgreater{}.}
+
+\NormalTok{When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+\end{verbatim}
+
+\subsection{Including Plots}\label{including-plots}
+
+You can also embed plots, for example:
+
+\includegraphics{project-3-Jiayi_files/figure-latex/pressure-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{library(rvest)}
+\NormalTok{library(dplyr)}
+\NormalTok{library(stringr)}
+\NormalTok{library(RSelenium)}
+\NormalTok{library(httr)}
+
+\NormalTok{scrape\_latte\_price \textless{}{-} function(country\_url) \{}
+\NormalTok{  page \textless{}{-} tryCatch(read\_html(country\_url), error = function(e) return(NA))}
+  
+\NormalTok{  if (is.na(page)) \{}
+\NormalTok{    return(NA)}
+\NormalTok{  \}}
+  
+\NormalTok{  latte\_price \textless{}{-} page \%\textgreater{}\%}
+\NormalTok{    html\_nodes(".menu{-}item") \%\textgreater{}\%}
+\NormalTok{    html\_text() \%\textgreater{}\%}
+\NormalTok{    str\_extract("\textbackslash{}\textbackslash{}$\textbackslash{}\textbackslash{}d+\textbackslash{}\textbackslash{}.\textbackslash{}\textbackslash{}d+") \%\textgreater{}\%}
+\NormalTok{    as.numeric()}
+  
+\NormalTok{  if (length(latte\_price) == 0 || is.na(latte\_price[1])) \{}
+\NormalTok{    return(NA)}
+\NormalTok{  \}}
+  
+\NormalTok{  return(latte\_price[1])}
+\NormalTok{\}}
+
+\NormalTok{countries \textless{}{-} c("AUSTRALIA", "BRASIL", "CANADA", "DENMARK")}
+\NormalTok{base\_url \textless{}{-} "https://www.starbucks{-}menu{-}prices.com/"}
+
+\NormalTok{latte\_prices \textless{}{-} data.frame(Country = character(), Price = numeric(), stringsAsFactors = FALSE)}
+
+\NormalTok{for (country in countries) \{}
+\NormalTok{  country\_url \textless{}{-} paste0(base\_url, country, "{-}starbucks{-}menu{-}prices/")}
+\NormalTok{  price \textless{}{-} scrape\_latte\_price(country\_url)}
+  
+\NormalTok{  latte\_prices \textless{}{-} rbind(latte\_prices, data.frame(Country = country, Price = price, stringsAsFactors = FALSE))}
+\NormalTok{\}}
+
+\NormalTok{write.csv(latte\_prices, "latte\_prices.csv", row.names=FALSE)}
+
+\NormalTok{start\_selenium \textless{}{-} function() \{}
+\NormalTok{  rD \textless{}{-} rsDriver(browser="firefox", port=4848L, verbose=F)}
+\NormalTok{  remDr \textless{}{-} rD$client}
+\NormalTok{  return(remDr)}
+\NormalTok{\}}
+
+\NormalTok{scrape\_exchange\_rate \textless{}{-} function(remDr, country\_code) \{}
+\NormalTok{  search\_query \textless{}{-} paste0("1 USD to ", country\_code)}
+\NormalTok{  remDr$navigate(paste0("https://duckduckgo.com/?q=", URLencode(search\_query)))}
+\NormalTok{  Sys.sleep(3)}
+  
+\NormalTok{  exchange\_rate \textless{}{-} tryCatch(\{}
+\NormalTok{    rate\_element \textless{}{-} remDr$findElement(using = "css", "div.display{-}{-}price")}
+\NormalTok{    rate\_text \textless{}{-} rate\_element$getElementText()[[1]]}
+\NormalTok{    as.numeric(str\_extract(rate\_text, "\textbackslash{}\textbackslash{}d+\textbackslash{}\textbackslash{}.\textbackslash{}\textbackslash{}d+"))}
+\NormalTok{  \}, error = function(e) return(NA))}
+  
+\NormalTok{  return(exchange\_rate)}
+\NormalTok{\}}
+
+\NormalTok{remDr \textless{}{-} start\_selenium()}
+
+\NormalTok{exchange\_rates \textless{}{-} data.frame(Country = character(), ExchangeRate = numeric(), stringsAsFactors = FALSE)}
+\NormalTok{country\_codes \textless{}{-} c("GBP", "CAD", "EUR", "JPY")}
+
+\NormalTok{for (i in 2:length(countries)) \{}
+\NormalTok{  rate \textless{}{-} scrape\_exchange\_rate(remDr, country\_codes[i {-} 1])}
+\NormalTok{  exchange\_rates \textless{}{-} rbind(exchange\_rates, data.frame(Country = countries[i], ExchangeRate = rate, stringsAsFactors = FALSE))}
+\NormalTok{\}}
+
+\NormalTok{remDr$close()}
+\NormalTok{write.csv(exchange\_rates, "exchange\_rates.csv", row.names=FALSE)}
+
+\NormalTok{latte\_prices \textless{}{-} read.csv("latte\_prices.csv")}
+\NormalTok{exchange\_rates \textless{}{-} read.csv("exchange\_rates.csv")}
+
+\NormalTok{latte\_usa\_price \textless{}{-} latte\_prices$Price[latte\_prices$Country == "usa"]}
+
+\NormalTok{latte\_data \textless{}{-} merge(latte\_prices, exchange\_rates, by = "Country", all.x = TRUE)}
+
+\NormalTok{latte\_data \textless{}{-} latte\_data \%\textgreater{}\%}
+\NormalTok{  mutate(}
+\NormalTok{    PPP\_ExchangeRate = Price / latte\_usa\_price,}
+\NormalTok{    Latte\_Index = (ExchangeRate {-} PPP\_ExchangeRate) / PPP\_ExchangeRate * 100}
+\NormalTok{  )}
+
+\NormalTok{write.csv(latte\_data, "latte\_index.csv", row.names=FALSE)}
+\NormalTok{print(latte\_data)}
+
+\NormalTok{Note that the \textasciigrave{}echo = FALSE\textasciigrave{} parameter was added to the code chunk to prevent printing of the R code that generated the plot.}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}

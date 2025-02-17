@@ -1,0 +1,116 @@
+---
+title: "Project 3"
+author: "JiaYi Chen"
+date: "2025-02-17"
+output: pdf_document
+---
+
+```{r question 1}
+scrape_latte_price <- function(country_url) {
+    +     page <- read_html(country_url)
+    +     latte_price <- page %>%
+      +         html_nodes(".menu-item") %>%  
+      +         html_text() %>%
+      +         str_extract("\\$\\d+\\.\\d+") %>%
+      +         as.numeric()
+    +     
+      +     return(latte_price)}
+countries <- c("AUSTRALIA", "BRASIL", "CANADA", "DENMARK")  
+base_url <- "https://www.starbucks-menu-prices.com/"  
+latte_prices <- data.frame()
+scrape_latte_price <- function(country_url) {
+  +     +     page <- read_html(country_url)
+  +     +     latte_price <- page %>%
+    +         +         html_nodes(".menu-item") %>%  
+    +         +         html_text() %>%
+    +         +         str_extract("\\$\\d+\\.\\d+") %>%
+    +         +         as.numeric()
+  +     +     
+    +         +     return(latte_price)}
+scrape_latte_price <- function(country_url) {
+  +     page <- tryCatch(read_html(country_url), error = function(e) return(NULL))
+  +     
+    +     if (is.null(page)) {
+      +         return(NA)}
+    +     latte_prices <- page %>%
+      +         html_nodes(".menu-item") %>%  
+      +         html_text() %>%
+      +         str_extract("\\$\\d+\\.\\d+") %>%
+      +         as.numeric()
+    +     
+      +     if (length(latte_prices) == 0) {
+        +         return(NA)  }
+    +     
+      +     return(latte_prices[1])  }
+countries <- c("AUSTRALIA", "BRASIL", "CANADA", "DENMARK")  
+base_url <- "https://starbucksmenuprices.com/#google_vignette"  
+latte_prices <- data.frame()
+write.csv(latte_prices, "latte_prices.csv", row.names=FALSE)
+print("数据抓取完成，已保存到 latte_prices.csv")
+library(RSelenium)
+scrape_exchange_rate <- function(currency_code) {
++     search_url <- paste0("https://duckduckgo.com/?q=1+USD+to+", currency_code)
++     remDr$navigate(search_url)
++     
++     Sys.sleep(3)  
++     rate_element <- remDr$findElement(using="css selector", "div.some-css-selector")
++     exchange_rate <- rate_element$getElementText()[[1]]
++     
++     return(exchange_rate)}
+currency_codes <- c("EUR", "GBP", "CAD", "INR")  
+exchange_rates <- data.frame()
+scrape_latte_price <- function(country_url) {page <- tryCatch(read_html(country_url), error = function(e) return(NA))
+if (is.na(page)) {
+    return(NA)}
+latte_price <- page %>%
+    html_nodes(".menu-item") %>%
+    html_text() %>%
+    str_extract("\\$\\d+\\.\\d+") %>%
+    as.numeric()
+if (length(latte_price) == 0 || is.na(latte_price[1])) {return(NA)}
+return(latte_price[1])
+}
+countries <- c("AUSTRALIA", "BRASIL", "CANADA", "DENMARK")
+base_url <- "https://www.starbucks-menu-prices.com/"
+latte_prices <- data.frame(Country = character(), Price = numeric(), stringsAsFactors = FALSE)
+for (country in countries) {
+  country_url <- paste0(base_url, country, "-starbucks-menu-prices/")
+  price <- scrape_latte_price(country_url)
+  latte_prices <- rbind(latte_prices, data.frame(Country = country, Price = price, stringsAsFactors = FALSE))}
+write.csv(latte_prices, "latte_prices.csv", row.names=FALSE)
+start_selenium <- function() {
+  rD <- rsDriver(browser="firefox", port=4848L, verbose=F)
+  remDr <- rD$client
+  return(remDr)}
+scrape_exchange_rate <- function(remDr, country_code) {search_query <- paste0("1 USD to ", country_code)
+  remDr$navigate(paste0("https://duckduckgo.com/?q=", URLencode(search_query)))
+  Sys.sleep(3)
+  exchange_rate <- tryCatch({
+    rate_element <- remDr$findElement(using = "css", "div.display--price")
+    rate_text <- rate_element$getElementText()[[1]]
+    as.numeric(str_extract(rate_text, "\\d+\\.\\d+"))
+}, error = function(e) return(NA))
+return(exchange_rate}
+remDr <- start_selenium()
+exchange_rates <- data.frame(Country = character(), ExchangeRate = numeric(), stringsAsFactors = FALSE)
+country_codes <- c("GBP", "CAD", "EUR", "JPY")
+for (i in 2:length(countries)) {rate <- scrape_exchange_rate(remDr, country_codes[i - 1])
+  exchange_rates <- rbind(exchange_rates, data.frame(Country = countries[i], ExchangeRate = rate, stringsAsFactors = FALSE))}
+remDr$close()
+write.csv(exchange_rates, "exchange_rates.csv", row.names=FALSE)
+latte_prices <- read.csv("latte_prices.csv")
+exchange_rates <- read.csv("exchange_rates.csv")
+latte_usa_price <- latte_prices$Price[latte_prices$Country == "usa"]
+latte_data <- merge(latte_prices, exchange_rates, by = "Country", all.x = TRUE)
+latte_data <- latte_data %>%
+mutate(PPP_ExchangeRate = Price / latte_usa_price,
+    Latte_Index = (ExchangeRate - PPP_ExchangeRate) / PPP_ExchangeRate * 100)
+write.csv(latte_data, "latte_index.csv", row.names=FALSE)
+print(latte_data)
+
+
+
+
+```
+
+## Including Plots
