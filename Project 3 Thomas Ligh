@@ -1,0 +1,208 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+
+url = 'https://starbucksmenuprices.com/'
+response = requests.get(url)
+if response.status_code == 200:
+    print("Successfully fetched the webpage!")
+else:
+    print(f"Failed to fetch webpage. Status code: {response.status_code}")
+
+
+soup = BeautifulSoup(response.text, 'html.parser')
+
+
+sections = soup.find_all('ul')
+
+
+country_links = []
+for section in sections:
+    links = section.find_all('a')
+    for link in links:
+        country_name = link.text.strip()
+        country_url = link.get('href')
+        country_links.append({'Country': country_name, 'URL': country_url})
+
+
+df = pd.DataFrame(country_links)
+print(df.head())  
+
+
+df.to_csv('starbucks_country_links.csv', index=False)
+print("Saved country links to starbucks_country_links.csv")
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import os
+
+
+links_file = 'starbucks_country_links.csv' 
+country_links = pd.read_csv(links_file) 
+
+valid_links = country_links[~country_links['URL'].str.contains('#', na=False)]
+
+if valid_links.empty:
+    print("No valid links found in the file.")
+    exit()
+
+
+for index, row in valid_links.iterrows():
+    country_url = row['URL']  
+    country_name = row['Country'].lower().replace(' ', '-') 
+    print(f"Fetching data for {country_name} from {country_url}...")
+
+    
+    response = requests.get(country_url)
+    if response.status_code == 200:
+        print(f"Successfully fetched the page: {country_url}")
+    else:
+        print(f"Failed to fetch webpage for {country_name}. Status code: {response.status_code}")
+        continue 
+ 
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    
+    starbucks_prices_heading = soup.find('h2')  
+    if starbucks_prices_heading:
+        starbucks_prices_table = starbucks_prices_heading.find_parent('table')  
+        print(f"'Hot Coffee' section not found for {country_name}. Skipping...")
+        continue  
+    
+    starbucks_prices_data = []  
+    if starbucks_prices_table:
+        rows = starbucks_prices_table.find_all('tr', class_='item')  
+        for row in rows:
+            cols = row.find_all('td')  
+            cols = [col.string.strip() if col.string else '' for col in cols]  
+            if cols:  
+                starbucks_prices_data.append(cols)
+
+  
+    if starbucks_prices_data:
+        df_starbucks_prices = pd.DataFrame(starbucks_prices_data, columns=['Item', 'Price']) 
+        output_file = f'starbucks_prices_{country_name}.csv' 
+        df_starbucks_prices.to_csv(output_file, index=False)  
+        print(f"Saved 'Starbucks Prices' prices to {output_file}")
+    else:
+        print(f"No 'Starbucks Prices Data' found for {country_name}. Skipping...")
+
+import pandas as pd
+import pycountry
+
+
+file_path = "worldwide_latte_prices.csv"  
+df = pd.read_csv(file_path)
+
+
+def standardize_country_name(country):
+    try:
+       
+        country = country.strip().lower()
+        
+       
+        country_corrections = {
+            "czech-republic": "Czech Republic",
+            "south-africa": "South Africa",
+            "united-states": "United States",
+            "united-kingdom": "United Kingdom",
+            "méxico": "Mexico",
+            "brasil": "Brazil",
+            "italy": "Italy",
+            "hungary": "Hungary",
+            "finland": "Finland",
+            "colombia": "Colombia",
+            "canada": "Canada",
+            "poland": "Poland",
+            "australia": "Australia",
+            "chile": "Chile"
+        }
+
+        
+        if country in country_corrections:
+            return country_corrections[country]
+
+        
+        country_obj = pycountry.countries.lookup(country)
+        return country_obj.name  
+
+    except LookupError:
+        return country  
+
+
+df["Country"] = df["Country"].apply(standardize_country_name)
+
+
+df = df.drop_duplicates()
+
+
+output_file = "latte_prices_standardized.csv"
+df.to_csv(output_file, index=False)
+
+print(f"✅ Standardized country names saved to {output_file}")
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+file_path = "starbucks_index.csv"
+df = pd.read_csv(file_path)
+
+
+df["PPP Exchange Rate (USD)"] = pd.to_numeric(df["PPP Exchange Rate (USD)"], errors="coerce")
+df["Exchange Rate"] = pd.to_numeric(df["Exchange Rate"], errors="coerce")
+
+
+df["Valuation %"] = ((df["PPP Exchange Rate (USD)"] - df["Exchange Rate"]) / df["Exchange Rate"]) * 100
+
+
+def classify_currency(row):
+    if row["PPP Exchange Rate (USD)"] < row["Exchange Rate"]:
+        return "Undervalued"  
+    elif row["PPP Exchange Rate (USD)"] > row["Exchange Rate"]:
+        return "Overvalued"  
+    else:
+        return "Neutral"
+
+df["Currency Valuation"] = df.apply(classify_currency, axis=1)
+
+
+df_sorted = df.sort_values(by="Valuation %", ascending=True)
+
+
+df_sorted["Color"] = df_sorted["Currency Valuation"].apply(lambda x: "red" if x == "Undervalued" else "blue")
+
+
+fig, ax = plt.subplots(figsize=(14, 10))
+scatter = ax.scatter(df_sorted["Valuation %"], range(len(df_sorted)), 
+           c=df_sorted["Color"], alpha=0.8, edgecolors="black", linewidths=1, s=100, label="Currency Valuation")
+
+
+ax.set_yticks(range(len(df_sorted)))
+ax.set_yticklabels(df_sorted["Country"], fontsize=12, ha="right")
+
+
+for i, txt in enumerate(df_sorted["Country"]):
+    ax.annotate(txt, (df_sorted["Valuation %"].iloc[i], i), 
+                textcoords="offset points", xytext=(5, 0), ha="left", fontsize=10)
+
+
+ax.axvline(x=0, color="black", linestyle="--", linewidth=1.5, label="Fair Value")
+
+
+handles = [plt.Line2D([0], [0], marker='o', color='w', label='Overvalued', markerfacecolor='blue', markersize=10),
+           plt.Line2D([0], [0], marker='o', color='w', label='Undervalued', markerfacecolor='red', markersize=10),
+           plt.Line2D([0], [0], color="black", linestyle="--", linewidth=1.5, label="Fair Value")]
+
+ax.legend(handles=handles, loc="upper left", fontsize=12)
+
+
+ax.set_xlabel("% Over/Under Valued", fontsize=14)
+ax.set_ylabel("Currencies", fontsize=14)
+ax.set_title("Starbucks Index: Corrected Currency Over/Undervaluation", fontsize=16)
+
+
+plt.tight_layout()
+plt.show()
