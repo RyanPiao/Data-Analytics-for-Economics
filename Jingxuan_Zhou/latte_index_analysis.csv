@@ -1,0 +1,15 @@
+country,latte_price_local,ppp_exchange_rate,exchange_rate,valuation
+australia,6.88,1.4700854700854702,1.59,Overvalued
+brasil,16.86,3.6025641025641026,3.6025641025641026,Undervalued
+canada,4.88,1.0427350427350428,1.43,Overvalued
+chile,11684.62,2496.7136752136757,961.58,Undervalued
+colombia,14062.5,3004.8076923076924,3004.8076923076924,Undervalued
+czech republic,165.0,35.256410256410255,24.21,Undervalued
+finland,6.2,1.324786324786325,0.96,Undervalued
+hungary,2190.0,467.94871794871796,388.66,Undervalued
+italy,1.5,0.32051282051282054,0.96,Overvalued
+méxico,92.41,19.745726495726498,19.745726495726498,Undervalued
+poland,10.9,2.3290598290598292,4.03,Overvalued
+south africa,48.0,10.256410256410257,18.5,Overvalued
+united kingdom,3.36,0.717948717948718,0.8,Overvalued
+united states,4.68,1.0,1.0,Undervalued
