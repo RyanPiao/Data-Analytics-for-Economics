@@ -1,0 +1,15 @@
+Country,Latte Price,Exchange Rate,PPP Exchange Rate (USD),Currency Valuation
+australia,6.88,1.0,1.4700854700854702,Overvalued
+brazil,16.86,1.0,3.6025641025641026,Overvalued
+canada,10.35,1.0,2.2115384615384617,Overvalued
+chile,11684.62,1.0,2496.7136752136757,Overvalued
+colombia,27400.0,1.0,5854.700854700855,Overvalued
+czech republic,165.0,1.0,35.256410256410255,Overvalued
+finland,6.2,1.0,1.324786324786325,Overvalued
+hungary,2190.0,1.0,467.94871794871796,Overvalued
+italy,1.5,1.0,0.32051282051282054,Undervalued
+mexico,92.41,1.0,19.745726495726498,Overvalued
+poland,10.9,1.0,2.3290598290598292,Overvalued
+south africa,48.0,1.0,10.256410256410257,Overvalued
+united kingdom,3.36,1.0,0.717948717948718,Undervalued
+united states,5.03,1.0,1.074786324786325,Overvalued
