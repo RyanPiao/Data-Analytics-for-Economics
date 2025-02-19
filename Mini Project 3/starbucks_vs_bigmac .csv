@@ -1,0 +1,10 @@
+Country,Latte Price,Exchange Rate,PPP Exchange Rate (USD),Currency Valuation,dollar_price,Higher PPP
+australia,6.88,1.58,1.4700854700854702,Undervalued,1.541666667,Big Mac
+brazil,16.86,5.69,3.602564102564102,Undervalued,1.648044693,Starbucks
+canada,10.35,1,2.2115384615384617,Overvalued,1.93877551,Starbucks
+chile,11684.62,949.59,2496.713675213676,Overvalued,2.451361868,Starbucks
+colombia,27400,4090.53,5854.700854700855,Overvalued,2.346714419,Starbucks
+czech republic,165,24.02,35.256410256410255,Overvalued,1.390537084,Starbucks
+poland,10.9,3.98,2.329059829059829,Undervalued,1.279069767,Starbucks
+south africa,48,18.42,10.256410256410255,Undervalued,1.339285714,Starbucks
+united states,5.03,1,1.074786324786325,Overvalued,2.24,Big Mac
